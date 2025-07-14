@@ -1,0 +1,35 @@
+# 基本パッケージ
+numpy>=1.24.0
+pandas>=2.0.0
+matplotlib>=3.7.0
+seaborn>=0.12.0
+scipy>=1.11.0
+
+# Jupyter関連
+jupyter>=1.0.0
+jupyterlab>=4.0.0
+ipython>=8.0.0
+ipywidgets>=8.0.0
+
+# データサイエンス
+scikit-learn>=1.3.0
+statsmodels>=0.14.0
+xgboost>=2.0.0
+lightgbm>=4.0.0
+
+# データ処理
+polars>=0.19.0
+pyarrow>=14.0.0
+openpyxl>=3.1.0
+
+# ユーティリティ
+tqdm>=4.66.0
+python-dotenv>=1.0.0
+requests>=2.31.0
+pyyaml>=6.0.0
+
+# 開発ツール
+pytest>=7.0.0
+black>=23.0.0
+ruff>=0.1.0
+mypy>=1.0.0

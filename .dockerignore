@@ -1,0 +1,60 @@
+# Git
+.git
+.gitignore
+
+# Python
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg
+*.egg-info
+dist
+build
+
+# Jupyter
+.ipynb_checkpoints
+*.ipynb
+
+# Virtual environments
+venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Project specific
+*.log
+*.db
+*.sqlite
+.env
+.env.*
+
+# Documentation
+docs/
+*.md
+
+# Test
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Data files (大きなファイルを除外)
+data/
+datasets/
+models/
+*.csv
+*.xlsx
+*.h5
+*.pkl
+*.pth
+*.ckpt

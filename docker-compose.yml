@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  python-cpu:
+    build:
+      context: .
+      dockerfile: Dockerfile.cpu
+    image: python-uv:cpu
+    container_name: python-uv-container-cpu
+    volumes:
+      - ./:/app/workspace
+    ports:
+      - "8888:8888"
+    environment:
+      - JUPYTER_ENABLE_LAB=yes
+    command: jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --allow-root --NotebookApp.token=''
+    stdin_open: true
+    tty: true
+
+  python-gpu:
+    build:
+      context: .
+      dockerfile: Dockerfile.gpu
+    image: python-uv:gpu
+    container_name: python-uv-container-gpu
+    volumes:
+      - ./:/app/workspace
+    ports:
+      - "8889:8888"
+    environment:
+      - JUPYTER_ENABLE_LAB=yes
+      - NVIDIA_VISIBLE_DEVICES=all
+    command: jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --allow-root --NotebookApp.token=''
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    stdin_open: true
+    tty: true

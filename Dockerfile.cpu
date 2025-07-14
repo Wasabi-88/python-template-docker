@@ -1,0 +1,36 @@
+# CPU版 Python Docker環境
+FROM python:3.11-slim
+
+# 作業ディレクトリの設定
+WORKDIR /app
+
+# 必要なシステムパッケージのインストール
+RUN apt-get update && apt-get install -y \
+    curl \
+    git \
+    build-essential \
+    && rm -rf /var/lib/apt/lists/*
+
+# UVのインストール
+RUN curl -LsSf https://astral.sh/uv/install.sh | sh
+ENV PATH="/root/.cargo/bin:$PATH"
+
+# Python環境のセットアップ
+RUN uv venv /app/venv
+ENV PATH="/app/venv/bin:$PATH"
+ENV VIRTUAL_ENV="/app/venv"
+
+# requirements.txtをコピー
+COPY requirements.cpu.txt /app/requirements.txt
+
+# パッケージのインストール
+RUN uv pip install --system -r /app/requirements.txt
+
+# 作業ディレクトリ用のフォルダ作成
+RUN mkdir -p /app/workspace
+
+# ポート設定（Jupyter用）
+EXPOSE 8888
+
+# デフォルトコマンド
+CMD ["python"]
