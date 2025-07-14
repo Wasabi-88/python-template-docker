@@ -13,18 +13,15 @@ RUN apt-get update && apt-get install -y \
 
 # UVのインストール
 RUN curl -LsSf https://astral.sh/uv/install.sh | sh
-ENV PATH="/root/.cargo/bin:$PATH"
 
-# Python環境のセットアップ
-RUN uv venv /app/venv
-ENV PATH="/app/venv/bin:$PATH"
-ENV VIRTUAL_ENV="/app/venv"
+# PATHを設定してUVを使えるようにする
+ENV PATH="/root/.cargo/bin:$PATH"
 
 # requirements.txtをコピー
 COPY requirements.cpu.txt /app/requirements.txt
 
-# パッケージのインストール
-RUN uv pip install --system -r /app/requirements.txt
+# パッケージのインストール（システムに直接インストール）
+RUN uv pip install --system --no-cache -r /app/requirements.txt
 
 # 作業ディレクトリ用のフォルダ作成
 RUN mkdir -p /app/workspace
