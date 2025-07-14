@@ -1,6 +1,6 @@
-# Python Docker環境（UV パッケージマネージャー使用）
+# Python Docker環境
 
-このプロジェクトは、UVパッケージマネージャーを使用したPython実行環境のDockerコンテナを提供します。CPU版とGPU版の両方に対応しています。
+このプロジェクトは、Python実行環境のDockerコンテナを提供します。CPU版とGPU版の両方に対応しています。
 
 ## 必要な環境
 
@@ -118,16 +118,16 @@ docker rm python-uv-container-cpu
 2. **コンテナ内で直接インストール**
    ```bash
    # コンテナ内で実行
-   uv pip install package-name
+   pip install package-name
    
    # requirements.txtから再インストール
-   uv pip install -r /app/requirements.txt
+   pip install -r /app/requirements.txt
    ```
 
 3. **カスタムrequirements.txtを使用**
    ```bash
    # コンテナ内で実行
-   uv pip install -r /app/workspace/my-requirements.txt
+   pip install -r /app/workspace/my-requirements.txt
    ```
 
 ## カスタマイズ
@@ -189,11 +189,7 @@ docker exec python-uv-container-cpu python /app/workspace/test_environment.py
 
 ### UVのインストールに失敗する場合
 
-プロキシ環境下の場合は、Dockerfileに以下を追加：
-```dockerfile
-ENV HTTP_PROXY=http://your-proxy:port
-ENV HTTPS_PROXY=http://your-proxy:port
-```
+pipベースのDockerfileを使用しているため、この問題は発生しません。
 
 ## ライセンス
 

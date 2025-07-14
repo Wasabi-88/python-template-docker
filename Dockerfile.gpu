@@ -21,20 +21,17 @@ RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.11 1
 # pipのインストール
 RUN curl https://bootstrap.pypa.io/get-pip.py | python3.11
 
+# pipのアップグレード
+RUN pip install --upgrade pip setuptools wheel
+
 # 作業ディレクトリの設定
 WORKDIR /app
-
-# UVのインストール
-RUN curl -LsSf https://astral.sh/uv/install.sh | sh
-
-# PATHを設定してUVを使えるようにする
-ENV PATH="/root/.cargo/bin:$PATH"
 
 # requirements.txtをコピー
 COPY requirements.gpu.txt /app/requirements.txt
 
-# パッケージのインストール（システムに直接インストール）
-RUN uv pip install --system --no-cache -r /app/requirements.txt
+# パッケージのインストール
+RUN pip install --no-cache-dir -r /app/requirements.txt
 
 # 作業ディレクトリ用のフォルダ作成
 RUN mkdir -p /app/workspace
@@ -46,6 +43,9 @@ ENV LD_LIBRARY_PATH=$CUDA_HOME/lib64:$LD_LIBRARY_PATH
 
 # ポート設定（Jupyter用）
 EXPOSE 8888
+
+# 作業ディレクトリをworkspaceに変更
+WORKDIR /app/workspace
 
 # デフォルトコマンド
 CMD ["python"]

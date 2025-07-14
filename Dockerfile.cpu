@@ -11,23 +11,23 @@ RUN apt-get update && apt-get install -y \
     build-essential \
     && rm -rf /var/lib/apt/lists/*
 
-# UVのインストール
-RUN curl -LsSf https://astral.sh/uv/install.sh | sh
-
-# PATHを設定してUVを使えるようにする
-ENV PATH="/root/.cargo/bin:$PATH"
+# pipのアップグレード
+RUN pip install --upgrade pip setuptools wheel
 
 # requirements.txtをコピー
 COPY requirements.cpu.txt /app/requirements.txt
 
-# パッケージのインストール（システムに直接インストール）
-RUN uv pip install --system --no-cache -r /app/requirements.txt
+# パッケージのインストール
+RUN pip install --no-cache-dir -r /app/requirements.txt
 
 # 作業ディレクトリ用のフォルダ作成
 RUN mkdir -p /app/workspace
 
 # ポート設定（Jupyter用）
 EXPOSE 8888
+
+# 作業ディレクトリをworkspaceに変更
+WORKDIR /app/workspace
 
 # デフォルトコマンド
 CMD ["python"]
